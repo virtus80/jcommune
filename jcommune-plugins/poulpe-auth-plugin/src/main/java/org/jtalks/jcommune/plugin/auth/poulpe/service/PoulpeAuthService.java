@@ -15,6 +15,7 @@
 
 package org.jtalks.jcommune.plugin.auth.poulpe.service;
 
+import org.apache.commons.io.IOUtils;
 import org.jtalks.jcommune.model.dto.UserDto;
 import org.jtalks.jcommune.model.plugins.exceptions.NoConnectionException;
 import org.jtalks.jcommune.model.plugins.exceptions.UnexpectedErrorException;
@@ -162,7 +163,14 @@ public class PoulpeAuthService {
     private Map<String, String> parseErrors(Representation repr, Locale locale) throws IOException, JAXBException {
         JAXBContext context = JAXBContext.newInstance(Errors.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        Errors errorsRepr = (Errors) unmarshaller.unmarshal(repr.getStream());
+        Errors errorsRepr;
+        try {
+            errorsRepr = (Errors) unmarshaller.unmarshal(repr.getStream());
+        } catch (JAXBException e) {
+            String rawResponse = IOUtils.toString(repr.getStream(), "UTF-8");
+            logger.error("Couldn't parse the response from Poulpe. It was: [{}]", rawResponse);
+            throw e;
+        }
 
         Map<String, String> errors = new HashMap<>();
         ResourceBundle resourceBundle = ResourceBundle.getBundle("ValidationMessages", locale);

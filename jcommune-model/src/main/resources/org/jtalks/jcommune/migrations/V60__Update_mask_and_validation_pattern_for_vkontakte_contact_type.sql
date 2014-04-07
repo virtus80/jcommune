@@ -1,1 +1,1 @@
-UPDATE CONTACT_TYPE SET VALIDATION_PATTERN='^(id[\d]+)|([\w]+[_.]{0,}[\w]+[\d]{0,})$', MASK='id123456 or latin letters, numbers, "." or "_"' WHERE lower(TYPE) = 'vkontakte';
+UPDATE CONTACT_TYPE SET VALIDATION_PATTERN='^(id[\\d]+)|([\\w]+[_.]{0,}[\\w]+[\\d]{0,})$', MASK='id123456 or latin letters, numbers, "." or "_"' WHERE lower(TYPE) = 'vkontakte';

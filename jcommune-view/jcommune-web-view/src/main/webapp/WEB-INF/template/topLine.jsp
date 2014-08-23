@@ -127,12 +127,14 @@
           <fmt:message key="label.signup"/>
         </a>
       </li>
-      <li class="divider-vertical"></li>
-      <li>
-        <a id="signin" rel="${sessionScope.customReferer}" href="${pageContext.request.contextPath}/login">
-          <fmt:message key="label.signin"/>
-        </a>
-      </li>
+      <c:if test="${not fn:endsWith(pageContext.request.requestURI, '/login')}">
+        <li class="divider-vertical"></li>
+        <li>
+          <a id="signin" rel="${sessionScope.customReferer}" href="${pageContext.request.contextPath}/login">
+            <fmt:message key="label.signin"/>
+          </a>
+        </li>
+      </c:if>
     </sec:authorize>
     <%-- END OF Not logged in block --%>
 

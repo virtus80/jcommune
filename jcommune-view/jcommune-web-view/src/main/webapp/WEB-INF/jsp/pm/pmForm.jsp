@@ -69,12 +69,10 @@
           <c:set var="hasPermissionToSend" value="true"/>
         </jtalks:hasPermission>
 
-
-        <jtalks:bbeditor labelForAction="label.send"
-                         postText="${privateMessageDto.body}"
-                         bodyParameterName="body"
-                         showSubmitButton="${hasPermissionToSend}"
-                         back="${pageContext.request.contextPath}/inbox"/>
+        <jtalks:velocityMacro>
+          #parse("org/jtalks/jcommune/jcommune-plugin-api/web/templates/bbeditor.vm")
+          #bbeditor("label.send" "${requestScope.locale}" "${pageContext.request.contextPath}/inbox" "${privateMessageDto.body}" "body" "${hasPermissionToSend}")
+        </jtalks:velocityMacro>
 
         <input id="savePM" type="submit" class="btn margin-left-big" tabindex="500" name="save_pm"
                value="<spring:message code="label.save"/>"

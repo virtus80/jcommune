@@ -56,6 +56,7 @@ public class JcLocaleResolver extends CookieLocaleResolver {
             locale = currentUser.getLanguage().getLocale();
         }
         request.setAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME, locale);
+        request.setAttribute("locale", locale);
         return locale;
     }
 }

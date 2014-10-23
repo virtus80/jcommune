@@ -39,10 +39,10 @@
       <form:hidden path="topicId"/>
       <form:hidden path="id"/>
 
-      <jtalks:bbeditor labelForAction="label.save"
-                       postText="${postDto.bodyText}"
-                       bodyParameterName="bodyText"
-                       back="${pageContext.request.contextPath}/topics/${topicId}"/>
+      <jtalks:velocityMacro>
+        #parse("org/jtalks/jcommune/jcommune-plugin-api/web/templates/bbeditor.vm")
+        #bbeditor("label.save" "${requestScope.locale}" "${pageContext.request.contextPath}/topics/${topic.id}" "${postDto.bodyText}" "bodyText" true)
+      </jtalks:velocityMacro>
     </form:form>
 
     <a href="${pageContext.request.contextPath}/topics/${topicId}" tabindex="500" class="back-btn">

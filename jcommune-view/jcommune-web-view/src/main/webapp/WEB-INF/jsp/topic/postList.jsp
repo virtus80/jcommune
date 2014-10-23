@@ -108,6 +108,7 @@
   <input type="hidden" id="branchId" value="${topic.branch.id}"/>
   <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal.id" var="userId"/>
+    <sec:authentication property="principal.class.name" var="cn"/>
     <input type="hidden" id="userId" value="${userId}"/>
   </sec:authorize>
 </c:if>
@@ -353,10 +354,11 @@
             action="${pageContext.request.contextPath}/topics/${topic.id}?page=${page}"
             method="POST" class='well anti-multipost submit-form' modelAttribute="postDto">
       <form:hidden path="topicId"/>
-      <jtalks:bbeditor labelForAction="label.answer"
-                       postText="${postDto.bodyText}"
-                       bodyParameterName="bodyText"
-                       back="${pageContext.request.contextPath}/topics/${topic.id}"/>
+      <form:errors path="${bodyParameterName}" cssClass="help-inline"/>
+      <jtalks:velocityMacro>
+        #parse("org/jtalks/jcommune/jcommune-plugin-api/web/templates/bbeditor.vm")
+        #bbeditor("label.answer" "${requestScope.locale}" "${pageContext.request.contextPath}/topics/${topic.id}" "${postDto.bodyText}" "bodyText" true)
+      </jtalks:velocityMacro>
     </form:form>
 
 

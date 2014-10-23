@@ -74,10 +74,10 @@
         <form:errors path="topic.announcement"/>
       </div>
     </jtalks:hasPermission>
-    <jtalks:bbeditor labelForAction="label.save"
-                     postText="${topicDto.bodyText}"
-                     bodyParameterName="bodyText"
-                     back="${pageContext.request.contextPath}/branches/${branchId}"/>
+    <jtalks:velocityMacro>
+      #parse("org/jtalks/jcommune/jcommune-plugin-api/web/templates/bbeditor.vm")
+      #bbeditor("label.save" "${requestScope.locale}" "${pageContext.request.contextPath}/branches/${branchId}" "${topicDto.bodyText}" "bodyText" true)
+    </jtalks:velocityMacro>
     <br/>
     <br/>
     <c:if test="${topicId eq null || topicDto.poll != null}">

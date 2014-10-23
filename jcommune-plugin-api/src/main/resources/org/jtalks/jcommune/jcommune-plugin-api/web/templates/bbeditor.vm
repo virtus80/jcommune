@@ -1,3 +1,19 @@
+#*
+
+Copyright (C) 2011  JTalks.org Team
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+*#
 #macro(bbeditor $labelForAction $locale $back $postText $bodyParameterName $showSubmitButton)
   <div class="btn-toolbar hide-on-preview">
     <div class="btn-group">
@@ -96,7 +112,7 @@
       </ul>
 
       <a id="format_quote" class="btn" accesskey="q" href="#fake"
-        title="<spring:message code='label.answer.quote'/>">
+        title="<jcommune:message locale='$locale'>label.answer.quote</jcommune:message>">
         <i class="icon-quote"></i>
       </a>
     </div>
@@ -117,14 +133,19 @@
     <div id="editorBBCODEdiv">
       <pre id="htmlContent"></pre>
       <textarea id="postBody" name="${bodyParameterName}" tabindex="200" style="width:100%;height: 350px"
-                placeholder="<jcommune:message locale='$locale'>placeholder.editor.content</jcommune:message>" class="script-confirm-unsaved"></textarea>
+                placeholder="<jcommune:message locale='$locale'>placeholder.editor.content</jcommune:message>" class="script-confirm-unsaved">$postText</textarea>
     </div>
     <br>
-    <jcommune:message locale='$locale'>label.keymaps.post</jcommune:message>
-    <br>
+    #if($showSubmitButton)
+      <jcommune:message locale='$locale'>label.keymaps.post</jcommune:message>
+      <br>
+    #end
   </div>
-  <input id="post" type="submit" class="btn btn-primary" accesskey="s" name="post" tabindex="300"
-        value="<jcommune:message locale='$locale'>$labelForAction</jcommune:message>"/>
+  #if($showSubmitButton)
+    <input id="post" type="submit" class="btn btn-primary" accesskey="s" name="post" tabindex="300"
+          value="<jcommune:message locale='$locale'>$labelForAction</jcommune:message>"/>
+
+  #end
   <input id="preview" type="button" class="btn btn-success space-left-medium-nf" name="preview" tabindex="400"
         value="<jcommune:message locale='$locale'>label.answer.preview</jcommune:message>"
         onclick="togglePreviewMode(new Array('posts', 'topics'));return null;"/>

@@ -123,6 +123,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
+  <tag>
+    <name>velocityMacro</name>
+    <tag-class>org.jtalks.jcommune.web.tags.VelocityMacro</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
 
   <tag>
     <description>
